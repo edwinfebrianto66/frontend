@@ -50,7 +50,7 @@
   
   <script setup>
   import { ref } from 'vue'
-  import api from '@/utils/axios'
+  import axios from 'axios'
   
   const oldPassword = ref('')
   const newPassword = ref('')
@@ -59,32 +59,25 @@
   const success = ref('')
   
   const updatePassword = async () => {
-    error.value = ''
-    success.value = ''
-  
-    if (!oldPassword.value || !newPassword.value || !confirmPassword.value) {
-      error.value = 'Semua field harus diisi.'
-      return
+  try {
+    const token = localStorage.getItem('token')
+    const res = await axios.post('http://localhost:4000/auth/reset-password', {
+      oldPassword: oldPassword.value,
+      newPassword: newPassword.value
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    if (res.data.success) {
+      alert('✅ Password berhasil diupdate')
+    } else {
+      alert('❌ Gagal update password')
     }
-  
-    if (newPassword.value !== confirmPassword.value) {
-      error.value = 'Password baru tidak cocok.'
-      return
-    }
-  
-    try {
-      await api.post('/user/change-password', {
-        old_password: oldPassword.value,
-        new_password: newPassword.value
-      })
-  
-      success.value = 'Password berhasil diubah.'
-      oldPassword.value = ''
-      newPassword.value = ''
-      confirmPassword.value = ''
-    } catch (err) {
-      error.value = err.response?.data?.message || 'Gagal mengubah password.'
-    }
+  } catch (err) {
+    alert('❌ Gagal update password')
+    console.error(err)
   }
+}
   </script>
-  

@@ -1,12 +1,44 @@
 <template>
-    <h2 class="text-xl font-bold mb-6 text-gray-800 border-b pb-3">Account</h2>
+  <div>
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 text-gray-800">Account</h2>
     <div class="space-y-4 text-sm">
-      <div class="flex"><div class="font-semibold w-1/4">Name</div><div>: Admin Dua Kelinci</div></div>
-      <div class="flex"><div class="font-semibold w-1/4">NIK</div><div>: 19000001</div></div>
-      <div class="flex"><div class="font-semibold w-1/4">Email</div><div>: inna@duakelinci.co.id</div></div>
-      <div class="flex"><div class="font-semibold w-1/4">Phone</div><div>: 0895339346702</div></div>
-      <div class="flex"><div class="font-semibold w-1/4">Address</div><div>: Semampir gg kelurahan no 76</div></div>
-      <div class="flex"><div class="font-semibold w-1/4">Gender</div><div>: Laki - laki</div></div>
+      <div class="flex">
+        <div class="w-32 font-semibold text-gray-700">Name</div>
+        <div>: {{ user?.name }}</div>
+      </div>
+      <div class="flex">
+        <div class="w-32 font-semibold text-gray-700">NIK</div>
+        <div>: {{ user?.nik }}</div>
+      </div>
+      <div class="flex">
+        <div class="w-32 font-semibold text-gray-700">Email</div>
+        <div>: {{ user?.email }}</div>
+      </div>
+      <div class="flex">
+        <div class="w-32 font-semibold text-gray-700">Phone</div>
+        <div>: {{ user?.phone }}</div>
+      </div>
+      <div class="flex">
+        <div class="w-32 font-semibold text-gray-700">Address</div>
+        <div>: {{ user?.address }}</div>
+      </div>
+      <div class="flex">
+        <div class="w-32 font-semibold text-gray-700">Gender</div>
+        <div>: {{ user?.gender }}</div>
+      </div>
     </div>
-  </template>
-  
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const user = ref({})
+
+onMounted(() => {
+  const savedUser = localStorage.getItem('user')
+  if (savedUser) {
+    user.value = JSON.parse(savedUser)
+  }
+})
+</script>

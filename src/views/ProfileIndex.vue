@@ -6,8 +6,8 @@
         <nav class="text-sm text-gray-500">Home / Admin Dua Kelinci / My Profile</nav>
       </div>
       <div class="text-right">
-        <div class="font-semibold text-gray-800">Admin Dua Kelinci</div>
-        <div class="text-sm text-gray-500">Administrator</div>
+        <div class="font-semibold text-gray-800">{{ user?.name }}</div>
+        <div class="text-sm text-gray-500">{{ user?.role }}</div>
       </div>
     </div>
 
@@ -54,6 +54,8 @@ import AccountDisplay from './AccountDisplay.vue'
 import AccountForm from './AccountForm.vue'
 import ChangePicture from './ChangePicture.vue'
 import ChangePassword from './ChangePassword.vue'
+import { useUser } from '@/composables/useUser'
+const { user } = useUser()
 
 const tab = ref('account')
 

@@ -13,8 +13,8 @@
     <div class="flex items-center space-x-4 ml-auto">
       <!-- User Info -->
       <div class="text-sm text-right hidden sm:block">
-        <div class="text-gray-800 font-semibold">Admin Dua Kelinci</div>
-        <div class="text-xs text-gray-500">Administrator</div>
+        <div class="text-gray-800 font-semibold">{{ user?.name }}</div>
+        <div class="text-xs text-gray-500">{{ user?.role || 'Administrator' }}</div>
       </div>
 
       <!-- Avatar Dropdown -->
@@ -58,6 +58,21 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const dropdownOpen = ref(false)
+const user = ref(null) // ⬅️ Tambahkan ini
+
+onMounted(() => {
+  // Ambil data user dari localStorage
+  const storedUser = localStorage.getItem('user')
+  if (storedUser) {
+    user.value = JSON.parse(storedUser)
+  }
+
+  window.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('click', handleClickOutside)
+})
 
 const toggleDropdown = (e) => {
   dropdownOpen.value = !dropdownOpen.value
@@ -74,11 +89,9 @@ const handleClickOutside = (e) => {
   }
 }
 
-onMounted(() => window.addEventListener('click', handleClickOutside))
-onBeforeUnmount(() => window.removeEventListener('click', handleClickOutside))
-
 const logout = () => {
   localStorage.removeItem('token')
+  localStorage.removeItem('user') // sekalian hapus user info
   router.push('/login')
 }
 </script>

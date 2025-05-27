@@ -2,13 +2,12 @@ import axios from 'axios'
 import router from '../router'
 
 const api = axios.create({
-  baseURL: 'http://localhost:4003', // sesuaikan jika perlu
+  baseURL: 'http://localhost:4003',
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 })
 
-// Tambahkan token di setiap request
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
   if (token) {
@@ -17,15 +16,15 @@ api.interceptors.request.use(config => {
   return config
 })
 
-// Tangani token expired / invalid
 api.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
+  res => res,
+  err => {
+    if (err.response?.status === 401 || err.response?.status === 403) {
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
       router.push('/login')
     }
-    return Promise.reject(error)
+    return Promise.reject(err)
   }
 )
 

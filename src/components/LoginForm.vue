@@ -94,6 +94,14 @@ const submitLogin = async () => {
       password: password.value
     })
     localStorage.setItem('token', res.data.token)
+      const profile = await axios.get('http://localhost:4000/auth/me', {
+      headers: {
+        Authorization: `Bearer ${res.data.token}`
+      }
+    })
+    // Simpan profile ke localStorage
+    console.log(profile);
+    localStorage.setItem('user', JSON.stringify(profile.data))
     router.push('/')
   } catch (err) {
     serverError.value = 'Username atau password salah.'

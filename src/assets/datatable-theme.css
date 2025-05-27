@@ -1,0 +1,44 @@
+.red-compact-table {
+  --easy-table-border: 1px solid #e5e7eb;
+  --easy-table-row-border: 1px solid #e5e7eb;
+
+  /* Red header */
+  --easy-table-header-font-size: 12px;
+  --easy-table-header-height: 30px;
+  --easy-table-header-font-color: white;
+  --easy-table-header-background-color: #dc2626; /* red-600 */
+
+  /* Body */
+  --easy-table-body-row-font-size: 12px;
+  --easy-table-body-row-height: 30px;
+  --easy-table-body-row-font-color: #374151;
+  --easy-table-body-row-background-color: #ffffff;
+  
+  /* Cell borders */
+  --easy-table-body-item-border-width: 0 1px 0 0;
+  --easy-table-body-item-border-color: #e5e7eb;
+  --easy-table-header-item-border-width: 0 1px 0 0;
+  --easy-table-header-item-border-color: #b91c1c; /* red-700 */
+}
+
+.red-compact-table .easy-table-header th {
+  font-weight: 500;
+  text-transform: none;
+  border-right: 1px solid #b91c1c !important;
+}
+
+.red-compact-table .easy-table-body td {
+  padding: 0 8px;
+  border-right: 1px solid #e5e7eb !important;
+}
+
+/* Remove last column's right border */
+.red-compact-table .easy-table-header th:last-child,
+.red-compact-table .easy-table-body td:last-child {
+  border-right: none !important;
+}
+
+/* Hover effect */
+.red-compact-table .easy-table-body tr:hover td {
+  background-color: #fef2f2; /* red-50 */
+}

@@ -5,6 +5,8 @@ import MenuIndex from '../views/MenuIndex.vue'
 import ProfileIndex from '../views/ProfileIndex.vue'
 import LoginForm from '../components/LoginForm.vue'
 import RegisterForm from '../components/RegisterForm.vue'
+import menuRoutes from '../modules/menu/routes'
+
 
 const routes = [
   {
@@ -13,7 +15,9 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'MenuIndex', component: MenuIndex },
-      { path: 'profile', name: 'ProfileIndex', component: ProfileIndex }
+      { path: 'profile', name: 'ProfileIndex', component: ProfileIndex },
+		...menuRoutes // ⬅️ tambahkan di sini
+
     ]
   },
   {
